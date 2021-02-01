@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+ datasource:
+   username: root
+   password: Redhat123
+   url: jdbc:mysql://192.168.12.76:9030/tmp?serverTimezone=Asia/Shanghai
+   driver-class-name: com.mysql.jdbc.Driver
+
+
+ #声明thymeleaf使用非严格的html
+ thymeleaf:
+   servlet:
+     content-type: text/html #application/json
+   mode: HTML
+   cache: false
+   suffix: .html
+   prefix: classpath:/templates/
+
+mybatis:
+   mapper-locations: classpath:mapping/*Mapper.xml
+   type-aliases-package: yl.bigdata.doristask.entity
+
+
+

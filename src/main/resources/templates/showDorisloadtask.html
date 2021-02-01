@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>展示Doris任务信息</title>
+</head>
+<body>
+    <form action="" method="post">
+        用户：<input type="text" name="name"/><br>
+    </form>
+     <table border="1" style="width: 1000px;">
+         <tr>
+            <th>任务创建时间</th>
+            <th>任务状态</th>
+            <th>任务信息</th>
+            <th>任务号</th>
+            <th>任务开跑时间</th>
+            <th>任务结束时间</th>
+            <th>任务结束时间</th>
+            <th>任务超时时间</th>
+            <th>操作</th>
+         </tr>
+        <tr th:each="dorisloadtask : ${list}">
+            <td th:text="${dorisloadtask.creat_time}"></td>
+            <td th:text="${dorisloadtask.statues}"></td>
+            <td th:text="${dorisloadtask.loadinfo}"></td>
+            <td th:text="${dorisloadtask.lable}"></td>
+            <td th:text="${dorisloadtask.start_time}"></td>
+            <td th:text="${dorisloadtask.end_time}"></td>
+            <td th:text="${dorisloadtask.finish_time}"></td>
+            <td th:text="${dorisloadtask.time_out}"></td>
+            <td >
+                <a th:href="@{/Dorisloadtask/updateDorisLoadTask(lable=${DorisLoadTask.lable})}">更新任务</a>
+                <a th:href="@{/Dorisloadtask/delDorisloadtask(lable=${DorisLoadTask.lable})}">删除任务</a>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

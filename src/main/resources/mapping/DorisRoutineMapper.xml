@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yl.bigdata.doristask.mapper.DorisRoutineMapper">
+
+    <select id="getRoutineLoadInfoList"  resultType="yl.bigdata.doristask.entity.DorisRoutine" parameterType="yl.bigdata.doristask.entity.RoutineVO">
+        select id, task_name, create_time, database_name, table_name, state, type, task_number, task_config,database_config,consumer_config,tasks_number,task_process,state_change,err_url,other_info
+        from tmp.doris_routine
+        <where>
+            <if test="routineVO.environment != null and routineVO.environment!=''">
+                and environment = #{routineVO.environment}
+            </if>
+            <if test="routineVO.taskName != null and routineVO.taskName!=''">
+                and task_name =#{routineVO.taskName}
+            </if>
+            <if test="routineVO.databaseName != null and routineVO.databaseName!=''">
+                and database_name =#{routineVO.databaseName}
+            </if>
+            <if test="routineVO.tableName != null and routineVO.tableName!=''">
+                and table_name = #{routineVO.tableName}
+            </if>
+            <if test="routineVO.state != null and routineVO.state!=''">
+                and state = #{routineVO.state}
+            </if>
+            <if test="routineVO.createTime1 != null and routineVO.createTime1!=''">
+                and create_time &gt;= #{routineVO.createTime1}
+            </if>
+                <if test="routineVO.createTime2 != null and routineVO.createTime2!=''">
+                and create_time &lt;= #{routineVO.createTime2}
+            </if>
+        </where>
+        ORDER BY id
+        limit #{routineVO.start},#{routineVO.end}
+    </select>
+
+    <select id="getRoutineLoadInfoTotal"  resultType="java.lang.Long" parameterType="yl.bigdata.doristask.entity.RoutineVO">
+        select count (1)
+        from tmp.doris_routine
+        <where>
+            <if test="routineVO.environment != null and routineVO.environment!=''">
+                and environment = #{routineVO.environment}
+            </if>
+            <if test="routineVO.taskName != null and routineVO.taskName!=''">
+                and task_name =#{routineVO.taskName}
+            </if>
+            <if test="routineVO.databaseName != null and routineVO.databaseName!=''">
+                and database_name =#{routineVO.databaseName}
+            </if>
+            <if test="routineVO.tableName != null and routineVO.tableName!=''">
+                and table_name = #{routineVO.tableName}
+            </if>
+            <if test="routineVO.state != null and routineVO.state!=''">
+                and state = #{routineVO.state}
+            </if>
+            <if test="routineVO.createTime1 != null and routineVO.createTime1!=''">
+                and create_time &gt;= #{routineVO.createTime1}
+            </if>
+            <if test="routineVO.createTime2 != null and routineVO.createTime2!=''">
+                and create_time &lt;= #{routineVO.createTime2}
+            </if>
+        </where>
+    </select>
+
+    <select id="getRoutineLoadInfoByTaskName" resultType="yl.bigdata.doristask.entity.DorisRoutine">
+        select id, task_name, create_time, database_name, table_name, state, type, task_number, task_config,database_config,consumer_config,tasks_number,task_process,state_change,err_url,other_info
+        from tmp.doris_routine
+        <where>
+            <if test="taskName != null and taskName!=''" >
+                task_name =#{taskName }
+            </if>
+        </where>
+    </select>
+
+</mapper>

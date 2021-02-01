@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yl.bigdata.doristask.mapper.DorisBrokerMapper">
+
+   <!-- <resultMap id="DorisBroker" type="yl.bigdata.doristask.entity.DorisBroker">
+        <id property="id" column="id"/>
+        <result property="taskName" column="task_name"/>
+        <result property="errInfo" column="err_info"/>
+        <result property="creatTime" column="creat_time"/>
+        <result property="startTime" column="start_time"/>
+        <result property="finishTime" column="finish_time"/>
+        <result property="errUrl" column="err_url"/>
+    </resultMap>
+-->
+    <select id="getBrokerLoadInfoList"  resultType="yl.bigdata.doristask.entity.DorisBroker" parameterType="yl.bigdata.doristask.entity.BrokerVO">
+        select id, task_name, state, database_name, table_name, type, err_info, create_time, start_time, finish_time, err_url
+        from tmp.doris_broker
+        <where>
+        <if test="brokerVO.environment != null and brokerVO.environment!=''">
+            and environment = #{brokerVO.environment}
+        </if>
+        <if test="brokerVO.taskName != null and brokerVO.taskName!=''">
+            and task_name =#{brokerVO.taskName}
+        </if>
+        <if test="brokerVO.databaseName != null and brokerVO.databaseName!=''">
+                and database_name =#{brokerVO.databaseName}
+        </if>
+        <if test="brokerVO.tableName != null and brokerVO.tableName!=''">
+                and table_name =#{brokerVO.tableName}
+        </if>
+        <if test="brokerVO.state != null and brokerVO.state!=''">
+            and state =#{brokerVO.state}
+        </if>
+        <if test="brokerVO.createTime1 != null and brokerVO.createTime1!=''">
+            and create_time &gt;= #{brokerVO.createTime1}
+        </if>
+        <if test="brokerVO.createTime2 != null and brokerVO.createTime2!=''">
+            and create_time &lt;= #{brokerVO.createTime2}
+        </if>
+        </where>
+        ORDER BY id
+        limit #{brokerVO.start},#{brokerVO.end}
+    </select>
+
+    <select id="getBrokerLoadInfoTotal"  resultType="java.lang.Long" parameterType="yl.bigdata.doristask.entity.BrokerVO">
+        select count (1)
+        from tmp.doris_broker
+        <where>
+            <if test="brokerVO.environment != null and brokerVO.environment!=''">
+                and environment = #{brokerVO.environment}
+            </if>
+            <if test="brokerVO.taskName != null and brokerVO.taskName!=''">
+                and task_name =#{brokerVO.taskName}
+            </if>
+            <if test="brokerVO.databaseName != null and brokerVO.databaseName!=''">
+                and database_name =#{brokerVO.databaseName}
+            </if>
+            <if test="brokerVO.tableName != null and brokerVO.tableName!=''">
+                and table_name =#{brokerVO.tableName}
+            </if>
+            <if test="brokerVO.state != null and brokerVO.state!=''">
+                and state =#{brokerVO.state}
+            </if>
+            <if test="brokerVO.createTime1 != null and brokerVO.createTime1!=''">
+                and create_time &gt;= #{brokerVO.createTime1}
+            </if>
+            <if test="brokerVO.createTime2 != null and brokerVO.createTime2!=''">
+                and create_time &lt;= #{brokerVO.createTime2}
+            </if>
+        </where>
+    </select>
+
+    <select id="getBrokerLoadInfoByTaskName" resultType="yl.bigdata.doristask.entity.DorisBroker">
+        select id, task_name, state, type, err_info, create_time, start_time, finish_time, err_url
+        from tmp.doris_broker
+        <where>
+            <if test="taskName != null">
+             task_name =#{taskName}
+            </if>
+        </where>
+    </select>
+
+</mapper>

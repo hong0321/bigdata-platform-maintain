@@ -1,0 +1,20 @@
+<!DOCTYPE html >
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加load任务</title>
+</head>
+<body>
+    <form th:action="@{/Dorisloadtask/insert}" method="post">
+        任务创建时间：<input type="text" name="creat_time"/><br/>
+        任务   状态：<input type="text" name="statues"/><br/>
+        任 务   号：<input type="text" name="label"/><br/>
+        任务   信息：<input type="text" name="loadinfo"/><br/>
+        任务开始时间：<input type="text" name="start_time"/><br/>
+        任务结束时间：<input type="text" name="end_time"/><br/>
+        任务完成时间：<input type="text" name="finish_time"/><br/>
+        任务超时时间：<input type="text" name="time_out"/><br/>
+        <input type="submit" value="确定"/><br>
+    </form>
+</body>
+</html>

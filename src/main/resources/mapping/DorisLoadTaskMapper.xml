@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yl.bigdata.doristask.mapper.DorisLoadTaskMapper">
+
+    <insert id="insert" parameterType="yl.bigdata.doristask.entity.DorisLoadTask">
+         insert into doris_loadtask(creat_time, statues, loadinfo, label, start_time, end_time, finish_time,time_out)
+        values (#{creat_time}, #{statues}, #{loadinfo}, #{label}, #{start_time},  #{end_time}, #{finish_time}, #{time_out})
+    </insert>
+
+    <select id="selectDorisloadtaskAll" resultType="dorisloadtask">
+        select * from tmp.doris_loadtask;
+    </select>
+
+    <select id="queryDorisLoadTaskByLabel" resultType="dorisloadtask">
+        select * from tmp.doris_loadtask where label =#{label};
+    </select>
+
+    <insert id="updateDorisLoadTask" parameterType="yl.bigdata.doristask.entity.DorisLoadTask">
+        insert into doris_loadtask(creat_time, statues, loadinfo, label, start_time, end_time, finish_time,time_out)
+        values (#{creat_time}, #{statues}, #{loadinfo}, #{label}, #{start_time},  #{end_time}, #{finish_time}, #{time_out})
+    </insert>
+
+    <delete id="deleteDorisLoadTaskByLabel">
+        delete from doris_loadtask where label=#{value}
+    </delete>
+
+</mapper>
+
